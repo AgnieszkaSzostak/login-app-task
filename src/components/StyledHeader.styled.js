@@ -1,14 +1,32 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-    background-color: #282c34;
-    /* min-height: 100vh; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    --color-alfa: #f0f2f4;
+    --color-beta: #282c34;
+    --color-gamma: #b7c1cb;
+
+
+    .navbar{
+        background-color: var(--color-beta);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0 0.5em 1em;
+        font-size: calc(10px + 2vmin);
+        color: var(--color-alfa);
+        align-self: center;
+        font-weight: 700;
+    }
+    .navbar__user{
+        color: var(--color-gamma);
+    }
+    .header__title{ 
+
+    }
+    span{
+        color: var(--color-gamma)
+    }
+    
 `
 
 export default StyledHeader;
