@@ -1,11 +1,14 @@
-import './App.css';
+// import './App.css';
+import React, {useState} from 'react';
 import LoginForm from './components/LoginForm';
+import Header from './components/Header';
+const App = () => {
 
-function App() {
+  const [fullUserName, setFullUserName] = useState('');
   return (
     <div className='App'>
-      <header className='App-header'>Login App</header>
-      <LoginForm />
+      <Header user={fullUserName}/>
+      <LoginForm setLoggedUser={setFullUserName}/>
     </div>
   );
 }
