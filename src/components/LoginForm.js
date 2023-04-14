@@ -1,33 +1,34 @@
 import React, {useEffect, useState} from "react";
-import { loginApi, authUserApi } from "../api";
+import { validateForm } from "../helpers/validator";
+import { authorize, logIn } from "../api/fetchData";
 
-const LoginForm = () => {
+
+const LoginForm = (props) => {
+    const {setLoggedUser} = props;
     const [subpage, setSubpage] = useState(1);
     const [isLogged, setIsLogged] = useState(false);
-    const [fullUserName, setFullUserName] = useState('')
     const [error, setError] = useState(null);
+    const [validationErrors, setValidationErrors] = useState(null);
     const [form, setForm] = useState({
         email: '',  
         userName: '',
         password: '',
     })
+
     useEffect(() => {
         if(isLogged){
-            const token = sessionStorage.getItem("token");
-            console.log('your token is', token)
-            fetch(authUserApi, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'authorization': token
-                }
-            })
-            .then(resp => resp.json())
-            .then(resp => setFullUserName(resp.fullUserName))
+            authorize()
+                .then(resp => setLoggedUser(resp.fullUserName))
+                .catch(err => console.error('errAuth', err))
+                .finally(setForm({ 
+                    email: '',  
+                    userName: '',
+                    password: '',
+                }))
         }
-    }, [isLogged])
-    const handleClick = (e) => {
+    }, [isLogged, setLoggedUser])
+
+    const handleClick = () => {
         setSubpage(2)
     }
 
@@ -42,26 +43,16 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       
-        const options = { 
-            method: 'POST', 
-            body: JSON.stringify(form),
-            headers: {"Content-Type": "application/json"}
-        }
-
-        fetch(loginApi, options)
-            .then(res =>{
-                if(!res.ok){
-                    console.log('res', res);
-                    throw Error(res.statusText)
-                }
-                 return res.json()
-            })
+        const errors = validateForm(form);
+        errors.length > 0  
+        ? setValidationErrors(errors) 
+        : logIn(form)
             .then(data => {
-                sessionStorage.setItem("token", data.token)
+                sessionStorage.setItem("token", data.token);
+                setIsLogged(true);
             })
-            .then(resp => setIsLogged(true))
             .catch(err => {
+                console.error('errLogin', err);
                 if(err.message === "Bad Request"){
                     setError("Wrong data")
                 }else if(err.message === "Unauthorized"){
@@ -93,7 +84,11 @@ const LoginForm = () => {
                         </>
                     )}
             </form>
-            {isLogged && fullUserName.length > 0 && <p>Hi {fullUserName}</p>}
+            {validationErrors 
+                ? validationErrors.map((error, index) => <p key={index}>{error}</p>)
+                : null
+            }
+
             {error && <p>{error}</p>}
         </>
     )
