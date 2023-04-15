@@ -5,6 +5,7 @@ const StyledForm = styled.form`
     --color-alfa: #f0f2f4;
     --color-beta: #282c34;
     --color-gamma: #b7c1cb;
+    --color-delta: #d80000;
     display: flex;
     flex-direction: column;
     background-color: var(--color-beta);
@@ -14,7 +15,55 @@ const StyledForm = styled.form`
     width: 50%;
     text-transform: capitalize;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    input {
+
+    /* form__field */
+
+    .form__field {
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+        position: relative;
+    }
+  
+    .form__field .form__input:focus ,
+    .form__field .form__input:active{
+        .form__label{
+            display: none;
+        }
+    }
+    .form__field:focus-within .form__label{
+        display: none
+    }
+    .hide{
+        .form__label{
+            display: none
+        }
+    }
+   
+    .form__field:has(.form__error) .form__label {
+        display: none;
+    }
+    .form__field:has(.form__error) .form__input {
+        border-bottom: 1px solid var(--color-delta)
+    }
+
+    .form__input:focus{
+        border-bottom: 1px solid var(--color-alfa);
+        outline: none;
+    }
+
+    .form__input:active{
+        border-bottom: 1px solid var(--color-alfa);
+    }
+    .form__label {
+        padding: 1em 0.7em;
+        color: var(--color-gamma);
+        text-align: left;
+        position: absolute;
+        font-size: small;
+        left: 20%;
+    }
+    .form__input {
         margin-bottom: 1em;
         border: none;
         padding: 1em 0.7em;
@@ -24,7 +73,9 @@ const StyledForm = styled.form`
         width: 60%;
         align-self: center;
     }
- 
+    .form__input:hover{
+        border-bottom: 1px solid var(--color-gamma);
+    }
     .form__button {
     align-items: center;
     margin-top: 1em;
@@ -51,30 +102,30 @@ const StyledForm = styled.form`
     -webkit-user-select: none;
     touch-action: manipulation;
     vertical-align: top;
-    white-space: nowrap;
-        
+    white-space: nowrap; 
     }
-    .form__input::placeholder{
-        color: var(--color-gamma);
-        
-    }
+ 
     .form__button:active {
     outline: 0;
     }
 
     .form__button:focus {
-    /* border-color: #485fc7; */
     outline: 0;
     }
 
     .form__button:hover {
-    /* border-color: var(--color-alfa); */
     color: var(--color-alfa);
     }
 
-    /* .form__button:focus:not(:active) {
-    box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
-    } */
+    .form__error{
+        position: absolute;
+        left: 20%;
+        right: 0;
+        top: 0;
+        text-transform: lowercase;
+        text-align: left;
+        font-size: small;
+    }
 `
 
 export default StyledForm
