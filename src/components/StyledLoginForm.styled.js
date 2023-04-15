@@ -16,53 +16,6 @@ const StyledForm = styled.form`
     text-transform: capitalize;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-    /* form__field */
-
-    .form__field {
-        display: flex;
-        justify-content: space-around;
-        position: relative;
-        position: relative;
-    }
-  
-    .form__field .form__input:focus ,
-    .form__field .form__input:active{
-        .form__label{
-            display: none;
-        }
-    }
-    .form__field:focus-within .form__label{
-        display: none
-    }
-    .hide{
-        .form__label{
-            display: none
-        }
-    }
-   
-    .form__field:has(.form__error) .form__label {
-        display: none;
-    }
-    .form__field:has(.form__error) .form__input {
-        border-bottom: 1px solid var(--color-delta)
-    }
-
-    .form__input:focus{
-        border-bottom: 1px solid var(--color-alfa);
-        outline: none;
-    }
-
-    .form__input:active{
-        border-bottom: 1px solid var(--color-alfa);
-    }
-    .form__label {
-        padding: 1em 0.7em;
-        color: var(--color-gamma);
-        text-align: left;
-        position: absolute;
-        font-size: small;
-        left: 20%;
-    }
     .form__input {
         margin-bottom: 1em;
         border: none;

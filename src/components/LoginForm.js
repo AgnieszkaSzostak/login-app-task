@@ -31,10 +31,6 @@ const LoginForm = (props) => {
         }
     }, [isLogged, setLoggedUser])
 
-    const handleClick = () => {
-        setSubpage(2)
-    }
-
     const handleChange = (e) => {
         const {name, value} = e.target;
 
@@ -42,6 +38,7 @@ const LoginForm = (props) => {
             ...form,
             [name]: value 
         })
+        setError(null);
     }
 
     const handleSubmit = (e) => {
@@ -85,7 +82,7 @@ const LoginForm = (props) => {
                     (
                         <>  
                             <Field value={form.email} name="email" type="email" label="email" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.email : null}/>
-                            <button className="form__button form__button--next" onClick={handleClick}>Next</button>
+                            <button className="form__button" onClick={() => setSubpage(2)}>Next</button>
                         </>
                     )
                     :
@@ -93,7 +90,7 @@ const LoginForm = (props) => {
                         <>
                             <Field value={form.userName} name="userName" type="text" label="login" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.userName : null}/>
                             <Field value={form.password} name="password" type="password" label="password" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.password : null}/>
-                            <input className="form__button form__button--submit" type="submit" value="submit"/>
+                            <input className="form__button" type="submit" value="submit"/>
                         </>
                     )}
             </StyledForm>
