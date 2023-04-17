@@ -99,7 +99,7 @@ const LoginForm = (props) => {
                         <>
                             <Field value={form.userName} name="userName" type="text" label="login" onChange={e =>handleChange(e)} error={validationErrors.userName}/>
                             <Field value={form.password} name="password" type="password" label="password" onChange={e =>handleChange(e)} error={validationErrors.password}/>
-                            <input className="form__button" type="submit" value="submit"/>
+                            <input className="form__button form__button--submit" type="submit" value="submit"/>
                         </>
                     )}
             </StyledForm>

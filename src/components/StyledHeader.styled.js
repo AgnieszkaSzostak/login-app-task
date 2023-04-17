@@ -26,6 +26,10 @@ const StyledHeader = styled.header`
     span{
         color: var(--color-gamma)
     }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 0.2em;
+    }
     
 `
 

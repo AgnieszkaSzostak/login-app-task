@@ -7,7 +7,6 @@ const StyledField = styled.div`
         position: relative;
 
     &:focus-within .form__label,
-    /* &:focus-within .form__error, */
     &:has(.form__error) .form__label,
     &.hide .form__label{
         display: none
@@ -21,7 +20,7 @@ const StyledField = styled.div`
         border-bottom: 1px solid var(--color-alfa)
 
     }
-    /* form__input  */
+
     .form__input {
         margin-bottom: 1em;
         border: none;
@@ -38,7 +37,7 @@ const StyledField = styled.div`
         outline: none;
     }
 
-    /* form__label */
+
     .form__label {
         padding: 1em 0.7em;
         color: var(--color-gamma);
@@ -46,6 +45,18 @@ const StyledField = styled.div`
         position: absolute;
         font-size: small;
         left: 20%;
+    }
+    @media screen and (max-width: 768px) {
+        .form__label{
+            left: 0;
+        }
+        .form__input{
+            width: 100%;
+        }
+        .form__error{
+            width: 100%;
+            left: 0;
+        }
     }
 `
 
