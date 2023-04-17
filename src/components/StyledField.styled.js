@@ -46,7 +46,7 @@ const StyledField = styled.div`
         font-size: small;
         left: 20%;
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 488px) {
         .form__label{
             left: 0;
         }

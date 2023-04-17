@@ -70,8 +70,8 @@ const StyledForm = styled.form`
         text-align: left;
         font-size: small;
     }
-    @media screen and (max-width: 768px) {
-        width: 80%;
+    @media screen and (max-width: 488px) {
+        /* width: 70%; */
         .form__button--submit{
             width: 100%;
         }
