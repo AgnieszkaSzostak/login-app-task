@@ -5,7 +5,7 @@ const Error = (props) => {
     const {message, onClick} = props
 
     return (
-        <StyledError onClick={onClick ? onClick : null} className="form__error">{message}</StyledError>
+        <StyledError onClick={onClick ? () => onClick() : () => null} className="form__error">{message}</StyledError>
     )
 }
 
