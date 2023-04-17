@@ -1,7 +1,11 @@
 import { fields } from "./fields";
 
 export const validateForm = (form) => {
-    let errors = null;
+    let errors = {
+        email: '',
+        userName: '',
+        password: '',
+    };
     fields.forEach(field => {
         const {label, name, required, pattern, error} = field;
         const value = form[name];

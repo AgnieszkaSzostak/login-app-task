@@ -16,16 +16,7 @@ const StyledForm = styled.form`
     text-transform: capitalize;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-    .form__input {
-        margin-bottom: 1em;
-        border: none;
-        padding: 1em 0.7em;
-        background-color: var(--color-beta);
-        color: #f0f2f4;
-        border-bottom: 0.5px solid var(--color-alfa);
-        width: 60%;
-        align-self: center;
-    }
+
     .form__input:hover{
         border-bottom: 1px solid var(--color-gamma);
     }

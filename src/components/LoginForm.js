@@ -10,15 +10,18 @@ const LoginForm = (props) => {
     const [subpage, setSubpage] = useState(1);
     const [isLogged, setIsLogged] = useState(false);
     const [error, setError] = useState(null);
-    const [validationErrors, setValidationErrors] = useState(null);
+    const [validationErrors, setValidationErrors] = useState({
+            email: '',  
+            userName: '',
+            password: '',
+    });
     const [form, setForm] = useState({
         email: '',  
         userName: '',
         password: '',
     })
-
     useEffect(() => {
-        if( validationErrors && validationErrors.email){
+        if( validationErrors.email.length > 0){
             setSubpage(1);
         }
     },[validationErrors, setSubpage])
@@ -39,37 +42,43 @@ const LoginForm = (props) => {
             [name]: value 
         })
         setError(null);
+        setValidationErrors({...validationErrors, [name]: ''})
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const errors = validateForm(form);
-        console.log(form);
-        errors !== null 
-        ? setValidationErrors(errors)
-        : logIn(form)
-            .then(data => {
-                sessionStorage.setItem("token", data.token);
-                setIsLogged(true);
-            })
-            .then()
-            .catch(err => {
-                console.error('errLogin', err);
-                if(err.message === "Bad Request"){
-                    setError("Wrong data")
-                }else if(err.message === "Unauthorized"){
-                    setError("Wrong credentials")
-                }
-            })
-            .finally(()=> {
-                setForm({ 
-                    email: '',  
-                    userName: '',
-                    password: '',
-                });
-                setSubpage(1);
-            })
+        errors.email.length > 0 || 
+        errors.userName.length > 0 || 
+        errors.password.length > 0 
+            ? setValidationErrors(errors)
+            : logIn(form)
+                .then(data => {
+                    sessionStorage.setItem("token", data.token);
+                    setIsLogged(true);
+                })
+                .then()
+                .catch(err => {
+                    if(err.message === "Bad Request"){
+                        setError("Wrong data")
+                    }else if(err.message === "Unauthorized"){
+                        setError("Wrong credentials")
+                    }
+                })
+                .finally(()=> {
+                    setForm({ 
+                        email: '',  
+                        userName: '',
+                        password: '',
+                    });
+                    setSubpage(1);
+                })
     }
+    const handleClick = () => {
+        setSubpage(2);
+        setError(null);
+    }
+  
     if(isLogged) {
         return null
     }
@@ -81,15 +90,15 @@ const LoginForm = (props) => {
                     ? 
                     (
                         <>  
-                            <Field value={form.email} name="email" type="email" label="email" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.email : null}/>
-                            <button className="form__button" onClick={() => setSubpage(2)}>Next</button>
+                            <Field value={form.email} name="email" type="email" label="email" onChange={e =>handleChange(e)} error={validationErrors.email}/>
+                            <button className="form__button" onClick={handleClick}>Next</button>
                         </>
                     )
                     :
                     (
                         <>
-                            <Field value={form.userName} name="userName" type="text" label="login" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.userName : null}/>
-                            <Field value={form.password} name="password" type="password" label="password" onChange={e =>handleChange(e)} error={validationErrors ? validationErrors.password : null}/>
+                            <Field value={form.userName} name="userName" type="text" label="login" onChange={e =>handleChange(e)} error={validationErrors.userName}/>
+                            <Field value={form.password} name="password" type="password" label="password" onChange={e =>handleChange(e)} error={validationErrors.password}/>
                             <input className="form__button" type="submit" value="submit"/>
                         </>
                     )}
