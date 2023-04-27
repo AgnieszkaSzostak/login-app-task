@@ -12,8 +12,7 @@ export const logIn = (form) => {
 
 }
 
-export const authorize = () => {
-    const token = sessionStorage.getItem("token");
+export const authorize = (token = sessionStorage.getItem("token") ) => {
     const options = {
         method: 'GET',
         headers: {

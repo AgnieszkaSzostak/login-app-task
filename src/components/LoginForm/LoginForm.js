@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
-import { validateForm } from "../helpers/validator";
-import { authorize, logIn } from "../api/fetchData";
+import { validateForm } from "../../helpers/validator";
+import { authorize, logIn } from "../../api/fetchData";
 import StyledForm from "./StyledLoginForm.styled";
-import Field from "./Field";
-import Error from "./Error";
+import Field from "../Field/Field";
+import Error from "../Error/Error";
+import StepContainer from "../Step/StepContainer";
 
 const LoginForm = (props) => {
-    const {setLoggedUser} = props;
+    const {setLoggedUser, token} = props
     const [subpage, setSubpage] = useState(1);
     const [isLogged, setIsLogged] = useState(false);
     const [error, setError] = useState(null);
@@ -26,6 +27,13 @@ const LoginForm = (props) => {
         }
     },[validationErrors, setSubpage])
 
+    useEffect(()=>{
+        if(token){
+            authorize(token)
+                .then(resp => setLoggedUser(resp.fullUserName))
+                .catch(err => console.error('errAuth', err))
+        }
+    },[])
     useEffect(() => {
         if(isLogged){
             authorize()
@@ -75,35 +83,39 @@ const LoginForm = (props) => {
                 })
     }
     const handleClick = () => {
-        setSubpage(2);
         setError(null);
+        form.email.length > 0
+            ? setSubpage(2)
+            : setValidationErrors({...validationErrors, email: 'Email is required!'})
     }
   
-    if(isLogged) {
+    if(isLogged || token) {
         return null
     }
     return (
         <>
-        
-            <StyledForm className="form" onSubmit={handleSubmit}>
+            <StyledForm novalidate className="form" onSubmit={handleSubmit}>
+                <h1 className="form__title">Login to your account</h1>
                 {subpage === 1 
                     ? 
                     (
                         <>  
-                            <Field value={form.email} name="email" type="email" label="email" onChange={e =>handleChange(e)} error={validationErrors.email}/>
+                            <Field value={form.email} name="email" type="email" placeholder="Enter your email" label="email" onChange={e =>handleChange(e)} error={validationErrors.email}/>
                             <button className="form__button" onClick={handleClick}>Next</button>
                         </>
                     )
                     :
                     (
                         <>
-                            <Field value={form.userName} name="userName" type="text" label="login" onChange={e =>handleChange(e)} error={validationErrors.userName}/>
-                            <Field value={form.password} name="password" type="password" label="password" onChange={e =>handleChange(e)} error={validationErrors.password}/>
-                            <input className="form__button form__button--submit" type="submit" value="submit"/>
+                            <Field value={form.userName} name="userName" type="text" placeholder="Enter your login" label="login" onChange={e =>handleChange(e)} error={validationErrors.userName}/>
+                            <Field value={form.password} name="password" type="password" placeholder="Enter your password" label="password" onChange={e =>handleChange(e)} error={validationErrors.password}/>
+                            <input className="form__button form__button--submit" type="submit" value="login"/>
                         </>
                     )}
+  
+                {error && <Error message={error}></Error>}
+            <StepContainer subpage={{subpage, setSubpage}}/>
             </StyledForm>
-            {error && <Error message={error}></Error>}
         </>
     )
 }
