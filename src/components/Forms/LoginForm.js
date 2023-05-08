@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { validateForm } from "../../helpers/validator";
 import { authorize, logIn } from "../../api/fetchData";
-import StyledForm from "./StyledLoginForm.styled";
+import StyledForm from "./StyledForm.styled";
 import Field from "../Field/Field";
 import Error from "../Error/Error";
 import StepContainer from "../Step/StepContainer";
@@ -114,7 +114,7 @@ const LoginForm = (props) => {
                     )}
   
                 {error && <Error message={error}></Error>}
-            <StepContainer subpage={{subpage, setSubpage}}/>
+                <StepContainer subpage={{subpage, setSubpage}}/>
             </StyledForm>
         </>
     )

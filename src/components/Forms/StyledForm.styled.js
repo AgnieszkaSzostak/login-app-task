@@ -11,8 +11,7 @@ const StyledForm = styled.form`
     font-family: 'Odasans extended', sans-serif;
     margin: 0 auto;
     width: 60%;
-    *{
-    }
+  
     .form__title{
         font-size: 2em;
         margin-bottom: 35px;

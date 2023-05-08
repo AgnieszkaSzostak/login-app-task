@@ -13,7 +13,7 @@ const Field = props => {
         <StyledField onClick={handleClick} className={`form__field ${value.length > 0 ? "hide" : ""}`}>
             <label className="form__label">{label}</label>
             <input ref={inputRef} placeholder={placeholder} className="form__input" value={value} type={type} name={name} onChange={onChange}/>
-            {error.length > 0 ? <Error message={error}/> : null}
+            {error && error.length > 0 ? <Error message={error}/> : null}
         </StyledField>
     )
 }
