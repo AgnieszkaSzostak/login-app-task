@@ -1,6 +1,5 @@
 import React from "react";
 import StyledPanel from "./StyledPanel";
-import background from '../../assets/images/background.jpg'
 
 const Panel = (props) => {
   const {changeForm} = props; 
