@@ -114,7 +114,7 @@ const LoginForm = (props) => {
                     )}
   
                 {error && <Error message={error}></Error>}
-                <StepContainer onClick={handleClick} state={form.email.length > 0 ? true : false} subpage={{subpage, setSubpage}}/>
+                <StepContainer onClick={handleClick} validation={form.email.length > 0 ? true : false} subpage={{subpage, setSubpage}}/>
             </StyledForm>
         </>
     )
