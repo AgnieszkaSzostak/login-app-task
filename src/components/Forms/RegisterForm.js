@@ -22,6 +22,7 @@ const RegisterForm = () => {
     }
     return(
         <StyledForm novalidate className="form" onSubmit={handleSubmit}>
+            <h1 className="form__title">Create account</h1>
             <Field value={form.email} name="email" type="email" placeholder="Enter your email" label="email" onChange={e =>handleChange(e)}></Field>
             <Field value={form.userName} name="userName" type="text" placeholder="Enter your login" label="login" onChange={e =>handleChange(e)}></Field>
             <Field value={form.password} name="password" type="password" placeholder="Enter your password" label="password" onChange={e =>handleChange(e)}></Field>
